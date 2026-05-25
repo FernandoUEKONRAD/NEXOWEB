@@ -1,12 +1,13 @@
 <!-- Layout principal -->
-<app-navbar *ngIf="!isLoginPage()"></app-navbar>
+<!-- TODO Santiago: descomentar cuando estén listos NavbarComponent, SidebarComponent y FooterComponent -->
+<!-- <app-navbar *ngIf="!isLoginPage()"></app-navbar> -->
 
 <div class="main-container">
-  <app-sidebar *ngIf="!isLoginPage()"></app-sidebar>
-  
+  <!-- <app-sidebar *ngIf="!isLoginPage()"></app-sidebar> -->
+
   <main class="content">
     <router-outlet></router-outlet>
   </main>
 </div>
 
-<app-footer *ngIf="!isLoginPage()"></app-footer>
+<!-- <app-footer *ngIf="!isLoginPage()"></app-footer> -->

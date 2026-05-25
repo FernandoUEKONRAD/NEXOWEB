@@ -101,11 +101,9 @@ export class ListaEventosComponent implements OnInit {
     });
   }
 
+  // Normaliza el estado para que "en curso" se vuelva "en-curso" como clase CSS
   claseEstado(estado: string | undefined): string {
-    return `badge badge-${estado}`;
-  }
-
-  volver(): void {
-    this.router.navigate(['/eventos']);
+    const estadoLimpio = (estado || 'programado').replace(/\s+/g, '-');
+    return `badge badge-${estadoLimpio}`;
   }
 }

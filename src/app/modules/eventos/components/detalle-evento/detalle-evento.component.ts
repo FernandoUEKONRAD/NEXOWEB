@@ -131,9 +131,15 @@ export class DetalleEventoComponent implements OnInit {
 
   nombreCreador(): string {
     if (!this.evento?.creador) return 'Desconocido';
-    return typeof this.evento.creador === 'string' 
-      ? this.evento.creador 
+    return typeof this.evento.creador === 'string'
+      ? this.evento.creador
       : this.evento.creador.nombre;
+  }
+
+  // Normaliza "en curso" -> "en-curso" para que la clase CSS sea válida
+  claseEstado(estado: string | undefined): string {
+    const estadoLimpio = (estado || 'programado').replace(/\s+/g, '-');
+    return `badge badge-${estadoLimpio}`;
   }
 
   irAEditar(): void {

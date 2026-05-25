@@ -9,7 +9,7 @@
     <header class="detalle-header">
       <div>
         <h1>{{ evento.titulo }}</h1>
-        <span class="badge badge-{{ evento.estado }}">{{ evento.estado }}</span>
+        <span [class]="claseEstado(evento.estado)">{{ evento.estado }}</span>
       </div>
       <app-button label="Editar" variant="secondary" (clicked)="irAEditar()"></app-button>
     </header>
@@ -51,18 +51,18 @@
     <section class="acciones-section">
       <div *ngIf="!estaInscrito" class="accion">
         <p>¿Te gustaría asistir a este evento?</p>
-        <app-button 
-          label="Inscribirse" 
-          variant="success" 
+        <app-button
+          label="Inscribirse"
+          variant="success"
           [loading]="procesando"
           (clicked)="inscribirse()">
         </app-button>
       </div>
       <div *ngIf="estaInscrito" class="accion inscrito">
         <p>✅ ¡Estás inscrito en este evento!</p>
-        <app-button 
-          label="Cancelar inscripción" 
-          variant="secondary" 
+        <app-button
+          label="Cancelar inscripción"
+          variant="secondary"
           [loading]="procesando"
           (clicked)="desinscribirse()">
         </app-button>
