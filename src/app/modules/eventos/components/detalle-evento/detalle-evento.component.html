@@ -1,0 +1,72 @@
+<div class="detalle-container">
+  <button class="back-link" (click)="volver()">← Volver a eventos</button>
+
+  <app-loader *ngIf="cargando" message="Cargando evento..."></app-loader>
+
+  <div *ngIf="error && !cargando" class="alert alert-error">{{ error }}</div>
+
+  <article *ngIf="evento && !cargando" class="evento-detalle">
+    <header class="detalle-header">
+      <div>
+        <h1>{{ evento.titulo }}</h1>
+        <span class="badge badge-{{ evento.estado }}">{{ evento.estado }}</span>
+      </div>
+      <app-button label="Editar" variant="secondary" (clicked)="irAEditar()"></app-button>
+    </header>
+
+    <section class="info-section">
+      <div class="info-item">
+        <span class="info-label">📅 Fecha y hora</span>
+        <span class="info-value">{{ formatearFecha(evento.fecha) }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">📍 Ubicación</span>
+        <span class="info-value">{{ evento.ubicacion }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">👤 Creador</span>
+        <span class="info-value">{{ nombreCreador() }}</span>
+      </div>
+
+      <div class="info-item" *ngIf="evento.probabilidadInasistencia !== undefined">
+        <span class="info-label">⚠️ Probabilidad de inasistencia</span>
+        <span class="info-value">{{ evento.probabilidadInasistencia }}%</span>
+      </div>
+    </section>
+
+    <section class="asistentes-section">
+      <h2>Asistentes ({{ evento.asistentes?.length || 0 }})</h2>
+      <div *ngIf="nombresAsistentes.length > 0" class="asistentes-lista">
+        <span *ngFor="let nombre of nombresAsistentes" class="asistente-chip">
+          {{ nombre }}
+        </span>
+      </div>
+      <p *ngIf="nombresAsistentes.length === 0" class="vacio">
+        Aún no hay asistentes confirmados
+      </p>
+    </section>
+
+    <section class="acciones-section">
+      <div *ngIf="!estaInscrito" class="accion">
+        <p>¿Te gustaría asistir a este evento?</p>
+        <app-button 
+          label="Inscribirse" 
+          variant="success" 
+          [loading]="procesando"
+          (clicked)="inscribirse()">
+        </app-button>
+      </div>
+      <div *ngIf="estaInscrito" class="accion inscrito">
+        <p>✅ ¡Estás inscrito en este evento!</p>
+        <app-button 
+          label="Cancelar inscripción" 
+          variant="secondary" 
+          [loading]="procesando"
+          (clicked)="desinscribirse()">
+        </app-button>
+      </div>
+    </section>
+  </article>
+</div>

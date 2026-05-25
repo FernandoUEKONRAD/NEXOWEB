@@ -1,0 +1,62 @@
+<div class="form-container">
+  <header class="form-header">
+    <h1>Crear evento</h1>
+    <p class="subtitle">Completa los datos del nuevo evento</p>
+  </header>
+
+  <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="evento-form">
+    <div class="form-group">
+      <label for="titulo">Título <span class="required">*</span></label>
+      <input id="titulo" type="text" formControlName="titulo" placeholder="Ej. Charla de programación" />
+      <small *ngIf="campoInvalido('titulo')" class="error-text">
+        El título es obligatorio (mínimo 3 caracteres)
+      </small>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="fecha">Fecha y hora <span class="required">*</span></label>
+        <input id="fecha" type="datetime-local" formControlName="fecha" />
+        <small *ngIf="campoInvalido('fecha')" class="error-text">La fecha es obligatoria</small>
+      </div>
+
+      <div class="form-group">
+        <label for="ubicacion">Ubicación <span class="required">*</span></label>
+        <input id="ubicacion" type="text" formControlName="ubicacion" placeholder="Ej. Auditorio principal" />
+        <small *ngIf="campoInvalido('ubicacion')" class="error-text">La ubicación es obligatoria</small>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="probabilidad">Probabilidad de inasistencia (%)</label>
+        <input id="probabilidad" type="number" formControlName="probabilidadInasistencia" min="0" max="100" />
+        <small *ngIf="campoInvalido('probabilidadInasistencia')" class="error-text">
+          Debe ser entre 0 y 100
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="estado">Estado</label>
+        <select id="estado" formControlName="estado">
+          <option value="programado">Programado</option>
+          <option value="en curso">En curso</option>
+          <option value="finalizado">Finalizado</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="comunidad">Comunidad</label>
+      <input id="comunidad" type="text" formControlName="comunidad" placeholder="ID de comunidad (opcional)" />
+    </div>
+
+    <div class="form-actions">
+      <app-button label="Cancelar" variant="secondary" (clicked)="cancelar()"></app-button>
+      <app-button label="Guardar" type="submit" [disabled]="form.invalid" [loading]="cargando"></app-button>
+    </div>
+  </form>
+</div>

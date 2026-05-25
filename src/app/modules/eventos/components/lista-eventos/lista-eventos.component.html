@@ -1,0 +1,80 @@
+<div class="lista-container">
+  <header class="lista-header">
+    <div>
+      <h1>Eventos</h1>
+      <p class="subtitle">Gestiona los eventos de Nexo</p>
+    </div>
+    <app-button label="+ Crear evento" variant="primary" (clicked)="irACrear()"></app-button>
+  </header>
+
+  <div class="filtros">
+    <select [(ngModel)]="filtroEstado" class="filtro-select">
+      <option value="">Todos los estados</option>
+      <option value="programado">Programado</option>
+      <option value="en curso">En curso</option>
+      <option value="finalizado">Finalizado</option>
+      <option value="cancelado">Cancelado</option>
+    </select>
+  </div>
+
+  <app-loader *ngIf="cargando" message="Cargando eventos..."></app-loader>
+
+  <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+  <div *ngIf="!cargando && eventosFiltrados.length === 0 && !error" class="empty-state">
+    <p>No hay eventos para mostrar</p>
+    <app-button label="Crear el primero" variant="primary" (clicked)="irACrear()"></app-button>
+  </div>
+
+  <div *ngIf="!cargando" class="eventos-grid">
+    <article
+      *ngFor="let evento of eventosFiltrados"
+      class="evento-card"
+      (click)="irADetalle(evento._id)">
+
+      <div class="card-header">
+        <h3>{{ evento.titulo }}</h3>
+        <span [class]="claseEstado(evento.estado)">{{ evento.estado }}</span>
+      </div>
+
+      <div class="card-body">
+        <p class="info-line">
+          <span class="icon">📅</span>
+          {{ formatearFecha(evento.fecha) }}
+        </p>
+        <p class="info-line">
+          <span class="icon">📍</span>
+          {{ evento.ubicacion }}
+        </p>
+        <p class="info-line">
+          <span class="icon">👥</span>
+          {{ evento.asistentes?.length || 0 }} asistentes
+        </p>
+      </div>
+
+      <div class="card-footer">
+        <app-button 
+          label="Editar" 
+          variant="secondary" 
+          (clicked)="irAEditar(evento._id, $event)">
+        </app-button>
+        <app-button 
+          label="Eliminar" 
+          variant="danger" 
+          (clicked)="abrirModalEliminar(evento, $event)">
+        </app-button>
+      </div>
+    </article>
+  </div>
+
+  <app-modal
+    [show]="showModalEliminar"
+    title="¿Eliminar evento?"
+    confirmLabel="Eliminar"
+    cancelLabel="Cancelar"
+    confirmVariant="danger"
+    (confirmed)="confirmarEliminar()"
+    (closed)="cerrarModalEliminar()">
+    <p>¿Está seguro de que desea eliminar este evento? Esta acción no se puede deshacer.</p>
+  </app-modal>
+</div>
