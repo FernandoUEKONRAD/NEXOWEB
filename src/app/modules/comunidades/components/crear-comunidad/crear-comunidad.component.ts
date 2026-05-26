@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ComunidadesService, Comunidad } from '../../../services/comunidades.service';
+import { ComunidadesService, Comunidad } from '../../../../services/comunidades.service';
 
 @Component({
   selector: 'app-crear-comunidad',
@@ -49,7 +49,7 @@ export class CrearComunidadComponent implements OnInit {
       next: () => {
         this.router.navigate(['/comunidades']);
       },
-      error: (error) => {
+      error: (error: any) => {
         this.error = 'Error al crear la comunidad';
         this.loading = false;
         console.error('Error:', error);

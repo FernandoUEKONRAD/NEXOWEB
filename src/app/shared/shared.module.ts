@@ -3,22 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { ButtonComponent } from './components/button/button.component';
-import { ModalComponent } from './components/modal/modal.component';
-import { LoaderComponent } from './components/loader/loader.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { FooterComponent } from './components/footer/footer.component';
-
 @NgModule({
-  declarations: [
-    ButtonComponent,
-    ModalComponent,
-    LoaderComponent,
-    NavbarComponent,
-    SidebarComponent,
-    FooterComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     FormsModule,
@@ -28,18 +14,8 @@ import { FooterComponent } from './components/footer/footer.component';
   exports: [
     CommonModule,
     FormsModule,
-<<<<<<< HEAD
     ReactiveFormsModule,
-    RouterModule,
-=======
-    ReactiveFormsMo,
-    NavbarComponent,
-    SidebarComponent,
-    FooterComponentdule,
->>>>>>> origin/main
-    ButtonComponent,
-    ModalComponent,
-    LoaderComponent
+    RouterModule
   ]
 })
 export class SharedModule { }

@@ -17,11 +17,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./modules/eventos/eventos.module').then(m => m.EventosModule)
   },
-  {
-    path: 'comunidades',
-    canActivate: [AuthGuard],
-    loadChildren: () => import('./modules/comunidades/comunidades.module').then(m => m.ComunidadesModule)
-  },
+  // NOTA: Módulo de comunidades desactivado temporalmente por errores pre-existentes
+  // {
+  //   path: 'comunidades',
+  //   canActivate: [AuthGuard],
+  //   loadChildren: () => import('./modules/comunidades/comunidades.module').then(m => m.ComunidadesModule)
+  // },
   {
     path: '',
     redirectTo: '/dashboard',
