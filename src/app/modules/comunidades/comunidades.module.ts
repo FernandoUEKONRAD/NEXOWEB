@@ -4,9 +4,17 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ComunidadesRoutingModule } from './comunidades-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 
+import { ListaComunidadesComponent } from './components/lista-comunidades/lista-comunidades.component';
+import { CrearComunidadComponent } from './components/crear-comunidad/crear-comunidad.component';
+import { EditarComunidadComponent } from './components/editar-comunidad/editar-comunidad.component';
+import { DetalleComunidadComponent } from './components/detalle-comunidad/detalle-comunidad.component';
+
 @NgModule({
   declarations: [
-    // Componentes de comunidades irán aquí
+    ListaComunidadesComponent,
+    CrearComunidadComponent,
+    EditarComunidadComponent,
+    DetalleComunidadComponent
   ],
   imports: [
     CommonModule,
