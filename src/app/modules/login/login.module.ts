@@ -7,12 +7,8 @@ import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
-<<<<<<< HEAD
     LoginComponent,
     RegisterComponent
-=======
-    // LoginComponent irá aquí (lo agregas tú cuando lo crees)
->>>>>>> origin/main
   ],
   imports: [
     CommonModule,

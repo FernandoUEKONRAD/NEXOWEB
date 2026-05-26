@@ -3,8 +3,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { ButtonComponent } from './components/button/button.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { LoaderComponent } from './components/loader/loader.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    ButtonComponent,
+    ModalComponent,
+    LoaderComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -15,7 +23,10 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    ButtonComponent,
+    ModalComponent,
+    LoaderComponent
   ]
 })
 export class SharedModule { }

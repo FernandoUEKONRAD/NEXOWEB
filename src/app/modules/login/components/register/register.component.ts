@@ -128,4 +128,26 @@ export class RegisterComponent implements OnInit {
   goToLogin(): void {
     this.router.navigate(['/login']);
   }
+
+  // Helpers para evaluar requisitos de contraseña desde el template
+  // (los templates de Angular no permiten regex literales)
+  hasMinLength(): boolean {
+    const v = this.f['password'].value;
+    return !!v && v.length >= 8;
+  }
+
+  hasUpperCase(): boolean {
+    const v = this.f['password'].value;
+    return !!v && /[A-Z]/.test(v);
+  }
+
+  hasLowerCase(): boolean {
+    const v = this.f['password'].value;
+    return !!v && /[a-z]/.test(v);
+  }
+
+  hasNumber(): boolean {
+    const v = this.f['password'].value;
+    return !!v && /[0-9]/.test(v);
+  }
 }

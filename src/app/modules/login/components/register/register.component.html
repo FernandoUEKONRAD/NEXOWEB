@@ -94,16 +94,16 @@
       <div class="password-requirements">
         <p>La contraseña debe contener:</p>
         <ul>
-          <li [class.met]="f['password'].value && f['password'].value.length >= 8">
+          <li [class.met]="hasMinLength()">
             ✓ Mínimo 8 caracteres
           </li>
-          <li [class.met]="f['password'].value && /[A-Z]/.test(f['password'].value)">
+          <li [class.met]="hasUpperCase()">
             ✓ Al menos una mayúscula
           </li>
-          <li [class.met]="f['password'].value && /[a-z]/.test(f['password'].value)">
+          <li [class.met]="hasLowerCase()">
             ✓ Al menos una minúscula
           </li>
-          <li [class.met]="f['password'].value && /[0-9]/.test(f['password'].value)">
+          <li [class.met]="hasNumber()">
             ✓ Al menos un número
           </li>
         </ul>
