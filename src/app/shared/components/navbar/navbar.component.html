@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a href="/">
+        <span class="brand-logo">NEXO</span>
+      </a>
+    </div>
+
+    <button class="hamburger" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="navbar-menu" [class.open]="isMobileMenuOpen">
+      <li><a href="/comunidades" (click)="closeMobileMenu()">Comunidades</a></li>
+      <li><a href="/eventos" (click)="closeMobileMenu()">Eventos</a></li>
+      <li class="navbar-menu-user">
+        <button class="logout-btn" (click)="logout()">Salir</button>
+      </li>
+    </ul>
+  </div>
+</nav>

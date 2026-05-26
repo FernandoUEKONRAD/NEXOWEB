@@ -5,12 +5,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     ButtonComponent,
     ModalComponent,
-    LoaderComponent
+    LoaderComponent,
+    NavbarComponent,
+    SidebarComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +26,10 @@ import { LoaderComponent } from './components/loader/loader.component';
   exports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsMo,
+    NavbarComponent,
+    SidebarComponent,
+    FooterComponentdule,
     ButtonComponent,
     ModalComponent,
     LoaderComponent

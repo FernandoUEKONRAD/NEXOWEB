@@ -1,0 +1,54 @@
+<div class="lista-comunidades-container">
+  <div class="header">
+    <h1>Gestión de Comunidades</h1>
+    <button class="btn-primary" (click)="crearComunidad()">+ Nueva Comunidad</button>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="alert alert-error">
+    {{ error }}
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-container">
+    <app-loader></app-loader>
+  </div>
+
+  <!-- Lista de Comunidades -->
+  <div *ngIf="!loading && comunidades.length > 0" class="comunidades-grid">
+    <div *ngFor="let comunidad of comunidades" class="comunidad-card">
+      <div class="card-header">
+        <h3>{{ comunidad.nombre }}</h3>
+      </div>
+      <div class="card-body">
+        <p><strong>Descripción:</strong> {{ comunidad.descripcion }}</p>
+        <p><strong>Ubicación:</strong> {{ comunidad.ubicacion }}</p>
+        <p *ngIf="comunidad.miembros"><strong>Miembros:</strong> {{ comunidad.miembros }}</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn-secondary" (click)="verDetalle(comunidad)">Ver Detalle</button>
+        <button class="btn-info" (click)="editarComunidad(comunidad)">Editar</button>
+        <button class="btn-danger" (click)="abrirModalEliminar(comunidad)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && comunidades.length === 0" class="empty-state">
+    <p>No hay comunidades registradas</p>
+    <button class="btn-primary" (click)="crearComunidad()">Crear Primera Comunidad</button>
+  </div>
+
+  <!-- Delete Modal -->
+  <div *ngIf="showDeleteModal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Confirmar eliminación</h2>
+      <p>¿Está seguro de que desea eliminar la comunidad <strong>{{ comunidadToDelete?.nombre }}</strong>?</p>
+      <p class="warning-text">Esta acción no se puede deshacer.</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" (click)="cancelarEliminar()">Cancelar</button>
+        <button class="btn-danger" (click)="confirmarEliminar()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

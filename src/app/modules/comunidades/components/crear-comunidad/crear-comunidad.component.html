@@ -1,0 +1,69 @@
+<div class="crear-comunidad-container">
+  <div class="form-wrapper">
+    <h1>Crear Nueva Comunidad</h1>
+
+    <div *ngIf="error" class="alert alert-error">
+      {{ error }}
+    </div>
+
+    <form [formGroup]="formulario" (ngSubmit)="enviar()">
+      <div class="form-group">
+        <label for="nombre">Nombre de la Comunidad *</label>
+        <input
+          type="text"
+          id="nombre"
+          formControlName="nombre"
+          class="form-control"
+          placeholder="Ingrese el nombre de la comunidad"
+          [class.is-invalid]="f['nombre'].invalid && f['nombre'].touched"
+        />
+        <div class="form-error" *ngIf="f['nombre'].invalid && f['nombre'].touched">
+          <p *ngIf="f['nombre'].errors?.['required']">El nombre es requerido</p>
+          <p *ngIf="f['nombre'].errors?.['minlength']">El nombre debe tener al menos 3 caracteres</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción *</label>
+        <textarea
+          id="descripcion"
+          formControlName="descripcion"
+          class="form-control textarea"
+          placeholder="Ingrese una descripción detallada de la comunidad"
+          rows="5"
+          [class.is-invalid]="f['descripcion'].invalid && f['descripcion'].touched"
+        ></textarea>
+        <div class="form-error" *ngIf="f['descripcion'].invalid && f['descripcion'].touched">
+          <p *ngIf="f['descripcion'].errors?.['required']">La descripción es requerida</p>
+          <p *ngIf="f['descripcion'].errors?.['minlength']">La descripción debe tener al menos 10 caracteres</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ubicacion">Ubicación *</label>
+        <input
+          type="text"
+          id="ubicacion"
+          formControlName="ubicacion"
+          class="form-control"
+          placeholder="Ingrese la ubicación de la comunidad"
+          [class.is-invalid]="f['ubicacion'].invalid && f['ubicacion'].touched"
+        />
+        <div class="form-error" *ngIf="f['ubicacion'].invalid && f['ubicacion'].touched">
+          <p *ngIf="f['ubicacion'].errors?.['required']">La ubicación es requerida</p>
+          <p *ngIf="f['ubicacion'].errors?.['minlength']">La ubicación debe tener al menos 3 caracteres</p>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancelar()" [disabled]="loading">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="formulario.invalid || loading">
+          <span *ngIf="!loading">Crear Comunidad</span>
+          <span *ngIf="loading">Creando...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

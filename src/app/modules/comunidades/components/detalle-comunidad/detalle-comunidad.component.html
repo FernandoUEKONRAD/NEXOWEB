@@ -1,0 +1,73 @@
+<div class="detalle-comunidad-container">
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-container">
+    <app-loader></app-loader>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !loading" class="alert alert-error">
+    {{ error }}
+    <button class="btn-secondary" (click)="volverAlListado()">Volver</button>
+  </div>
+
+  <!-- Detalle -->
+  <div *ngIf="comunidad && !loading" class="comunidad-detalle">
+    <div class="header">
+      <h1>{{ comunidad.nombre }}</h1>
+      <button class="btn-back" (click)="volverAlListado()">← Volver</button>
+    </div>
+
+    <div class="comunidad-card">
+      <div class="card-section">
+        <h3>Información General</h3>
+        <div class="info-row">
+          <span class="label">Nombre:</span>
+          <span class="value">{{ comunidad.nombre }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Ubicación:</span>
+          <span class="value">{{ comunidad.ubicacion }}</span>
+        </div>
+        <div class="info-row" *ngIf="comunidad.miembros">
+          <span class="label">Miembros:</span>
+          <span class="value">{{ comunidad.miembros }}</span>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <h3>Descripción</h3>
+        <p class="description">{{ comunidad.descripcion }}</p>
+      </div>
+
+      <div class="card-section" *ngIf="comunidad.createdAt || comunidad.updatedAt">
+        <h3>Información de Control</h3>
+        <div class="info-row" *ngIf="comunidad.createdAt">
+          <span class="label">Creado:</span>
+          <span class="value">{{ comunidad.createdAt | date: 'medium' }}</span>
+        </div>
+        <div class="info-row" *ngIf="comunidad.updatedAt">
+          <span class="label">Actualizado:</span>
+          <span class="value">{{ comunidad.updatedAt | date: 'medium' }}</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-info" (click)="editarComunidad()">✏️ Editar</button>
+        <button class="btn-danger" (click)="abrirModalEliminar()">🗑️ Eliminar</button>
+      </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div *ngIf="showDeleteModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2>Confirmar eliminación</h2>
+        <p>¿Está seguro de que desea eliminar la comunidad <strong>{{ comunidad.nombre }}</strong>?</p>
+        <p class="warning-text">Esta acción no se puede deshacer.</p>
+        <div class="modal-actions">
+          <button class="btn-secondary" (click)="cancelarEliminar()">Cancelar</button>
+          <button class="btn-danger" (click)="confirmarEliminar()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

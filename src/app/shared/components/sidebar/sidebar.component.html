@@ -1,0 +1,28 @@
+<aside class="sidebar" [class.closed]="!isSidebarOpen">
+  <button class="toggle-btn" (click)="toggleSidebar()">
+    <span>{{ isSidebarOpen ? '✕' : '☰' }}</span>
+  </button>
+
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a (click)="navigate('/comunidades')" class="nav-link">
+          <span class="icon">🏘️</span>
+          <span class="label" *ngIf="isSidebarOpen">Comunidades</span>
+        </a>
+      </li>
+      <li>
+        <a (click)="navigate('/eventos')" class="nav-link">
+          <span class="icon">📅</span>
+          <span class="label" *ngIf="isSidebarOpen">Eventos</span>
+        </a>
+      </li>
+      <li>
+        <a (click)="navigate('/dashboard')" class="nav-link">
+          <span class="icon">📊</span>
+          <span class="label" *ngIf="isSidebarOpen">Dashboard</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>
