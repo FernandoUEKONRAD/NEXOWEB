@@ -201,26 +201,42 @@ export class AuthService {
   private handleError(error: any): Observable<never> {
     let errorMessage = 'Ha ocurrido un error en la autenticación';
 
+    // Log detallado para depuración
+    console.error('🔴 Error de autenticación - Detalle completo:');
+    console.error('   status:', error.status);
+    console.error('   statusText:', error.statusText);
+    console.error('   url:', error.url);
+    console.error('   error.error:', error.error);
+    console.error('   error completo:', error);
+
     if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
+      // Error del lado del cliente (red, CORS, etc.)
+      errorMessage = `Error de red: ${error.error.message}`;
+    } else if (error.status === 0) {
+      // No se pudo contactar al servidor
+      errorMessage = 'No se puede conectar con el servidor. Verifica que el backend esté ejecutándose en http://localhost:3000';
     } else {
+      // Intentar extraer el mensaje del backend (que devuelve {msg: "..."})
+      const backendMsg = error.error?.msg || error.error?.message || (typeof error.error === 'string' ? error.error : null);
+
       switch (error.status) {
         case 401:
-          errorMessage = 'Credenciales inválidas. Intenta de nuevo.';
+          errorMessage = backendMsg || 'Credenciales inválidas. Intenta de nuevo.';
           break;
         case 409:
-          errorMessage = 'El email ya está registrado.';
+          errorMessage = backendMsg || 'El email ya está registrado.';
           break;
         case 400:
-          errorMessage = error.error?.message || 'Datos inválidos.';
+          errorMessage = backendMsg || 'Datos inválidos.';
           break;
         case 500:
-          errorMessage = 'Error del servidor. Intenta más tarde.';
+          errorMessage = backendMsg || 'Error del servidor. Intenta más tarde.';
           break;
+        default:
+          errorMessage = backendMsg || `Error HTTP ${error.status}`;
       }
     }
 
-    console.error('Error de autenticación:', error);
     return throwError(() => new Error(errorMessage));
   }
 }
