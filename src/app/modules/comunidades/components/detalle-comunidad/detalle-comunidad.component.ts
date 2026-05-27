@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ComunidadesService, Comunidad } from '../../../services/comunidades.service';
+import { ComunidadesService, Comunidad } from '../../../../services/comunidades.service';
 
 @Component({
   selector: 'app-detalle-comunidad',
@@ -33,11 +33,11 @@ export class DetalleComunidadComponent implements OnInit {
         this.error = null;
 
         this.comunidadesService.getComunidad(id).subscribe({
-          next: (comunidad) => {
+          next: (comunidad: Comunidad) => {
             this.comunidad = comunidad;
             this.loading = false;
           },
-          error: (error) => {
+          error: (error: any) => {
             this.error = 'Error al cargar la comunidad';
             this.loading = false;
             console.error('Error:', error);
@@ -63,7 +63,7 @@ export class DetalleComunidadComponent implements OnInit {
         next: () => {
           this.router.navigate(['/comunidades']);
         },
-        error: (error) => {
+        error: (error: any) => {
           this.error = 'Error al eliminar la comunidad';
           console.error('Error:', error);
         }

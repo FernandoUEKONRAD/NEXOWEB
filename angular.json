@@ -59,17 +59,23 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nexo-web:build"
+          },
           "configurations": {
             "production": {
-              "buildTarget": "nexo-web:build:production"
+              "browserTarget": "nexo-web:build:production"
             },
             "development": {
-              "buildTarget": "nexo-web:build:development"
+              "browserTarget": "nexo-web:build:development"
             }
           },
           "defaultConfiguration": "development"
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

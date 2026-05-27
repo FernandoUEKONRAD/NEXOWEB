@@ -1,0 +1,54 @@
+<div class="dashboard-wrapper">
+  <app-navbar></app-navbar>
+  
+  <div class="dashboard-container">
+    <div class="welcome-section">
+      <h1>Bienvenido a NEXOWEB</h1>
+      <p *ngIf="currentUser$ | async as user">
+        Hola, <strong>{{ user?.name || user?.email }}</strong>
+      </p>
+    </div>
+
+    <div class="content-grid">
+      <!-- Tarjeta de Eventos -->
+      <div class="content-card">
+        <div class="card-header">
+          <h2>Eventos</h2>
+        </div>
+        <div class="card-body">
+          <p>Gestiona tus eventos y participa en las comunidades</p>
+          <button class="btn btn-link" routerLink="/eventos">
+            Ver Eventos →
+          </button>
+        </div>
+      </div>
+
+      <!-- Tarjeta de Comunidades (Desactivada temporalmente) 
+      <div class="content-card">
+        <div class="card-header">
+          <h2>Comunidades</h2>
+        </div>
+        <div class="card-body">
+          <p>Únete a comunidades de interés y colabora con otros miembros</p>
+          <button class="btn btn-link" routerLink="/comunidades">
+            Ver Comunidades →
+          </button>
+        </div>
+      </div>
+      -->
+
+      <!-- Tarjeta de Perfil -->
+      <div class="content-card">
+        <div class="card-header">
+          <h2>Mi Perfil</h2>
+        </div>
+        <div class="card-body">
+          <p>Edita tu información personal y preferencias</p>
+          <button class="btn btn-link" routerLink="/perfil">
+            Editar Perfil →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

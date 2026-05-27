@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -7,16 +8,24 @@ const routes: Routes = [
     loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
   },
   {
+    path: 'dashboard',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
     path: 'eventos',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./modules/eventos/eventos.module').then(m => m.EventosModule)
   },
-  {
-    path: 'comunidades',
-    loadChildren: () => import('./modules/comunidades/comunidades.module').then(m => m.ComunidadesModule)
-  },
+  // NOTA: Módulo de comunidades desactivado temporalmente por errores pre-existentes
+  // {
+  //   path: 'comunidades',
+  //   canActivate: [AuthGuard],
+  //   loadChildren: () => import('./modules/comunidades/comunidades.module').then(m => m.ComunidadesModule)
+  // },
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/dashboard',
     pathMatch: 'full'
   },
   {

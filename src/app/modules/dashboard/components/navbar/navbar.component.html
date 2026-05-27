@@ -1,0 +1,58 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <div class="navbar-brand">
+      <a routerLink="/dashboard" class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">NEXOWEB</span>
+      </a>
+    </div>
+
+    <!-- Menu hamburguesa (mobile) -->
+    <button class="navbar-toggle" (click)="toggleMenu()" [class.active]="menuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Menu principal -->
+    <ul class="navbar-menu" [class.active]="menuOpen">
+      <li class="nav-item">
+        <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">
+          Inicio
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/eventos" routerLinkActive="active" (click)="closeMenu()">
+          Eventos
+        </a>
+      </li>
+      <!-- Comunidades desactivado temporalmente
+      <li class="nav-item">
+        <a routerLink="/comunidades" routerLinkActive="active" (click)="closeMenu()">
+          Comunidades
+        </a>
+      </li>
+      -->
+    </ul>
+
+    <!-- User menu -->
+    <div class="navbar-user" *ngIf="currentUser$ | async as user">
+      <div class="user-info">
+        <div class="user-avatar">
+          {{ (user?.name || user?.email)?.charAt(0)?.toUpperCase() || 'U' }}
+        </div>
+        <div class="user-details">
+          <p class="user-name">{{ user?.name || user?.email }}</p>
+          <p class="user-email">{{ user?.email }}</p>
+        </div>
+      </div>
+
+      <div class="dropdown-menu">
+        <a href="#" class="dropdown-item" (click)="logout(); $event.preventDefault()">
+          <span class="icon">🚪</span> Cerrar Sesión
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

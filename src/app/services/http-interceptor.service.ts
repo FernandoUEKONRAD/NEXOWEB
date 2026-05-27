@@ -1,40 +1,75 @@
 import { Injectable } from '@angular/core';
 import {
+  HttpRequest,
+  HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpInterceptorService implements HttpInterceptor {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Agregar token a los headers si existe
-    const token = localStorage.getItem('token');
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    // Agregar token al header de la solicitud
+    if (this.authService.isAuthenticated()) {
+      request = this.addToken(request);
+    }
+
+    return next.handle(request).pipe(
+      tap(event => {
+        // Manejar respuestas exitosas
+        if (event instanceof HttpResponse) {
+          // Aquí puedes manejar cualquier lógica relacionada con respuestas exitosas
+        }
+      }),
+      catchError(error => this.handleError(error))
+    );
+  }
+
+  /**
+   * Agregar token de autenticación al header
+   */
+  private addToken(request: HttpRequest<any>): HttpRequest<any> {
+    const token = this.authService.getToken();
+    
     if (token) {
-      request = request.clone({
+      return request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
     }
 
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        // Manejar errores 401/403
-        if (error.status === 401 || error.status === 403) {
-          // Redirigir a login si el token expiró
-          localStorage.removeItem('token');
-          // window.location.href = '/login';
-        }
-        return throwError(error);
-      })
-    );
+    return request;
+  }
+
+  /**
+   * Manejar errores de HTTP
+   */
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    if (error.status === 401) {
+      // Token expirado o inválido
+      this.authService.logout();
+      this.router.navigate(['/login'], {
+        queryParams: { sessionExpired: true }
+      });
+    } else if (error.status === 403) {
+      // Acceso prohibido
+      this.router.navigate(['/dashboard']);
+    }
+
+    return throwError(() => error);
   }
 }

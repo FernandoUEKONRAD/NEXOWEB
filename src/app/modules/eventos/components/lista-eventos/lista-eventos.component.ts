@@ -61,13 +61,11 @@ export class ListaEventosComponent implements OnInit {
     if (id) this.router.navigate(['/eventos', id]);
   }
 
-  irAEditar(id: string | undefined, event: MouseEvent): void {
-    event.stopPropagation();
+  irAEditar(id: string | undefined): void {
     if (id) this.router.navigate(['/eventos/editar', id]);
   }
 
-  abrirModalEliminar(evento: Evento, event: MouseEvent): void {
-    event.stopPropagation();
+  abrirModalEliminar(evento: Evento): void {
     this.eventoSeleccionado = evento;
     this.showModalEliminar = true;
   }
