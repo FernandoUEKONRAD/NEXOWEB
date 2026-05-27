@@ -120,7 +120,17 @@ export class RegisterComponent implements OnInit {
       },
       error: (error: any) => {
         this.loading = false;
-        this.errorMessage = error.message;
+        // Mostrar mensaje de error detallado
+        if (error.status === 0) {
+          this.errorMessage = 'No se puede conectar con el servidor. Verifica que la API esté ejecutándose en http://localhost:3000';
+        } else if (error.error && error.error.message) {
+          this.errorMessage = error.error.message;
+        } else if (error.message) {
+          this.errorMessage = error.message;
+        } else {
+          this.errorMessage = 'Error del servidor. Intenta más tarde.';
+        }
+        console.error('Error en registro:', error);
       }
     });
   }

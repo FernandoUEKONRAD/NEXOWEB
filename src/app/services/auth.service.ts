@@ -41,15 +41,19 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.checkTokenOnInit();
+    this.cleanupInvalidTokens();
   }
 
   /**
-   * Verificar si hay un token válido al inicializar
+   * Limpiar tokens inválidos al inicializar
    */
-  private checkTokenOnInit(): void {
-    if (this.hasToken()) {
-      this.isAuthenticatedSubject.next(true);
+  private cleanupInvalidTokens(): void {
+    const token = this.getToken();
+    if (token && this.isTokenExpired(token)) {
+      this.removeToken();
+      this.removeUser();
+      this.isAuthenticatedSubject.next(false);
+      this.currentUserSubject.next(null);
     }
   }
 

@@ -19,11 +19,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: #2563eb;
+  color: #8a92a6;
   text-decoration: none;
 }
 
 a:hover {
+  color: #65676b;
   text-decoration: underline;
 }
 

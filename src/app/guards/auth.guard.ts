@@ -17,7 +17,9 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    if (this.authService.isAuthenticated()) {
+    const isAuthenticated = this.authService.isAuthenticated();
+    
+    if (isAuthenticated) {
       // Verificar si la ruta requiere un rol específico
       if (route.data && route.data['role']) {
         const requiredRole = route.data['role'];
@@ -32,6 +34,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       // Redirigir a login si no está autenticado
+      console.log('No autenticado, redirigiendo a login. URL solicitada:', state.url);
       this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
       return false;
     }
