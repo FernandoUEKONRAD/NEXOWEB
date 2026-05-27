@@ -5,16 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpInterceptorService } from './services/http-interceptor.service';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    SidebarComponent,
-    FooterComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
